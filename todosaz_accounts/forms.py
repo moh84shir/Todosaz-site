@@ -42,3 +42,20 @@ class RegisterForm(forms.Form):
         cd = self.cleaned_data
         User.objects.create_user(username=cd["username"], password=cd["password"])
         return redirect("/accounts/login/")
+
+
+class EditProfileForm(forms.Form):
+    first_name = forms.CharField(required=False, label="نام")
+    last_name = forms.CharField(required=False, label="نام خانوادگی")
+    email = forms.EmailField(required=False, label="ایمیل")
+
+    def edit_profile(self, user):
+        cd = self.cleaned_data
+
+        first_name = cd['first_name'] if 'first_name' in cd else user.first_name
+        last_name = cd['last_name'] if 'last_name' in cd else user.last_name
+        email = cd['email'] if 'email' in cd else user.email
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()

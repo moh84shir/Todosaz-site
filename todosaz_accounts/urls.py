@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.decorators import login_required
 
 app_name = 'accounts'
 
@@ -7,4 +8,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('delete-account', views.del_account, name='del_account'),
+    path('profile/', views.user_profile, name="profile"),
+    path('edit-profile/<int:pk>/', login_required(views.EditProfile.as_view()), name="edit_profile")
 ]

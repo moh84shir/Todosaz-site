@@ -1,0 +1,32 @@
+<p>نام کاربری :{{ username }}</p>
+
+<!-- first name -->
+<p> نام :
+    {% if first_name %}
+    {{ first_name }}
+    {% else %}
+    <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
+    {% endif %}
+</p>
+
+
+<!-- last name -->
+<p> نام خانوادگی :
+    {% if last_name %}
+    {{ last_name }}
+    {% else %}
+    <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
+    {% endif %}
+</p>
+
+
+<!-- email -->
+<p> ایمیل :
+    {% if email %}
+    {{ email }}
+    {% else %}
+    <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
+    {% endif %}
+</p>
+
+<p><a href="{% url 'accounts:edit_profile' user.pk %}">ویرایش حساب کاربری</a></p>
