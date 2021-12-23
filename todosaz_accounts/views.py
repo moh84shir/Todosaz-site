@@ -41,26 +41,17 @@ def user_profile(request):
     email = user.email
 
     context = {
-        "user":user,
+        "user": user,
         "username": username,
         "first_name": first_name,
         "last_name": last_name,
         "email": email,
     }
-    return render(request, 'accounts/profile.html', context)
-
-# class EditProfile(FormView):
-#     form_class = EditProfileForm
-#     success_url = "/accounts/profile/"
-#     template_name = "accounts/edit_profile.html"
-
-#     def form_valid(self, form):
-#         form.edit_profile(self.request.user)
-#         return super().form_valid(form)
+    return render(request, "accounts/profile.html", context)
 
 
 class EditProfile(UpdateView):
-    fields = ['first_name', 'last_name', 'email']
+    fields = ["first_name", "last_name", "email"]
     success_url = "/accounts/profile/"
     template_name = "accounts/edit_profile.html"
 
