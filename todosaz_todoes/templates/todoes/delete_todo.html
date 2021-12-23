@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    <p>آیا واقعا می خواهی "{{ todo }}" را حذف کنی?</p>
+    <button type="submit">بله</button>
+</form>

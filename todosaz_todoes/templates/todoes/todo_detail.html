@@ -1,0 +1,13 @@
+<p>{{ todo.title }}</p>
+<p>{{ todo.simple_desc }}</p>
+<p>{{ todo.created }}</p>
+<p> Is Active? {% if todo.is_active %}
+    Yes{% else %}No{% endif %}
+</p>
+<p>{{ todo.text }}</p>
+
+
+<p>
+    <a href="{% url 'todoes:edit_todo' todo.pk %}"><button>ویرایش</button></a>
+    <a href="{% url 'todoes:delete_todo' todo.pk %}"><button>حذف</button></a>
+</p>

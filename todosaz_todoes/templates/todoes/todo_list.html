@@ -1,0 +1,10 @@
+<a href="{% url 'todoes:create_todo' %}"><button>اضافه کردن تودو</button></a>
+{% if todo_list %}
+<ol>
+    {% for todo in todo_list %}
+    <li><a href="{{ todo.get_absolute_url }}">{{ todo.title }}</a></li>
+    {% endfor %}
+</ol>
+{% else %}
+<p>شما تودویی ندارید یکی اضافه کنید</p>
+{% endif %}
