@@ -14,7 +14,6 @@ class LoginForm(forms.Form):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/todoes/")
         self.add_error("username", "عملیات ورود با شکست مواجه شد")
 
 

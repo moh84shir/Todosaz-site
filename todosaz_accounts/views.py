@@ -1,8 +1,9 @@
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import UpdateView
 from django.shortcuts import render, redirect
-from .forms import LoginForm, RegisterForm, EditProfileForm
+from .forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 def login(request):
@@ -10,6 +11,7 @@ def login(request):
         form = LoginForm(request.POST or None)
         if form.is_valid():
             form.login_user(request)
+            return redirect('/')
         return render(request, "accounts/login.html", {"form": form})
     return redirect("/")
 
@@ -58,3 +60,9 @@ class EditProfile(UpdateView):
     def get_queryset(self):
         username = self.request.user.username
         return User.objects.filter(username=username)
+
+
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect("/accounts/login/")
