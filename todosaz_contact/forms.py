@@ -1,6 +1,7 @@
 from django import forms
 from django.core.mail import send_mail
 
+
 class ContactForm(forms.Form):
     name = forms.CharField(label="نام شریفتان", max_length=50)
     email = forms.EmailField(label="ایمیل شما", max_length=120)
@@ -22,5 +23,7 @@ class ContactForm(forms.Form):
 
         send_mail(
             subject=cd['subject'],
-            message=contact_message  
+            message=contact_message,
+            from_email='chertandpert120@gmail.com',
+            recipient_list=['chertandpert120@gmail.com'],
         )
