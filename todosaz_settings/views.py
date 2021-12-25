@@ -3,13 +3,21 @@ from django.core.exceptions import PermissionDenied
 
 from todosaz_settings.models import Setting
 from .forms import ChangeSettingsFrom
-from django.views.generic.base import View
-from django.views.generic.edit import UpdateView
 
 
 def change_settings(request):
     if request.user.is_superuser:
-        form = ChangeSettingsFrom(request.POST or None)
+        settings = Setting.objects.last()
+        form = ChangeSettingsFrom(
+            request.POST or None,
+            initial={
+                "title": settings.title,
+                "short_desc": settings.short_desc,
+                "about": settings.about,
+                "email": settings.email,
+                "phone": settings.phone,
+            },
+        )
         if form.is_valid():
             form.change_settings()
             return redirect("/")
