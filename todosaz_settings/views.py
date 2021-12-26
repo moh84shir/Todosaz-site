@@ -25,11 +25,12 @@ def change_settings(request):
         return render(request, "settings/change.html", {"form": form})
     raise PermissionDenied
 
+
 def rest_settings(request):
     if request.user.is_superuser:
-       settings = Setting.objects.all()
-       if settings is not None:
-          settings.delete()
-          Setting.objects.create()
-       return redirect('/settings/change/')
+        settings = Setting.objects.all()
+        if settings is not None:
+            settings.delete()
+            Setting.objects.create()
+        return redirect('/settings/change/')
     raise PermissionDenied
