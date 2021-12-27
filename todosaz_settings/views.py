@@ -1,9 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render
 
-from todosaz_settings.models import Setting
-
 from .forms import ChangeSettingsFrom
+from .models import Setting
 
 
 def change_settings(request):

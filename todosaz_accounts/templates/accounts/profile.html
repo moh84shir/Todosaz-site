@@ -3,9 +3,9 @@
 <!-- first name -->
 <p> نام :
     {% if first_name %}
-    {{ first_name }}
+        {{ first_name }}
     {% else %}
-    <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
+        <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
     {% endif %}
 </p>
 
@@ -13,20 +13,32 @@
 <!-- last name -->
 <p> نام خانوادگی :
     {% if last_name %}
-    {{ last_name }}
+        {{ last_name }}
     {% else %}
-    <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
+        <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
     {% endif %}
 </p>
 
+
+<!-- user todo count -->
+{% if todo_count != 0 %}
+    <p>
+        تعداد تودو های شما :
+        {{ todo_count }}
+    </p>
+{% else %}
+    <p>شما هیچ تودویی ندارید. <a href="{% url 'todoes:create_todo' %}">یکی بسازید</a></p>
+{% endif %}
 
 <!-- email -->
 <p> ایمیل :
     {% if email %}
-    {{ email }}
+        {{ email }}
     {% else %}
-    <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
+        <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
     {% endif %}
 </p>
 
-<p><a href="{% url 'accounts:edit_profile' user.pk %}">ویرایش حساب کاربری</a></p>
+<p>
+    <a href="{% url 'accounts:edit_profile' user.pk %}">ویرایش حساب کاربری</a>
+</p>

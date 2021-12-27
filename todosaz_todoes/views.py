@@ -1,10 +1,8 @@
-from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView, CreateView, DeleteView, FormView
+from django.views.generic.edit import UpdateView, DeleteView, FormView
 from .models import Todo
 from .forms import CreateTodoForm
-from django.urls import reverse
 
 
 class TodoList(ListView):

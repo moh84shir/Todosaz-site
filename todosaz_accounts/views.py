@@ -1,5 +1,7 @@
 from django.views.generic.edit import UpdateView
 from django.shortcuts import render, redirect
+
+from todosaz_todoes.models import Todo
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -41,6 +43,7 @@ def user_profile(request):
     first_name = user.first_name
     last_name = user.last_name
     email = user.email
+    todo_count = Todo.objects.filter(user=user).count()
 
     context = {
         "user": user,
@@ -48,6 +51,7 @@ def user_profile(request):
         "first_name": first_name,
         "last_name": last_name,
         "email": email,
+        "todo_count": todo_count,
     }
     return render(request, "accounts/profile.html", context)
 
