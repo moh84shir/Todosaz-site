@@ -6,7 +6,7 @@ from .forms import CreateTodoForm
 
 
 class TodoList(ListView):
-    template_name = "todoes/todo_list.html"
+    template_name = "todoes/list.html"
 
     def get_queryset(self):
         usr = self.request.user
@@ -15,7 +15,7 @@ class TodoList(ListView):
 
 class TodoDetail(DetailView):
     model = Todo
-    template_name = "todoes/todo_detail.html"
+    template_name = "todoes/detail.html"
 
     def get_queryset(self):
         usr = self.request.user
@@ -25,7 +25,7 @@ class TodoDetail(DetailView):
 class CreateTodo(FormView):
     form_class = CreateTodoForm
     success_url = "/todoes/"
-    template_name = "todoes/create_todo.html"
+    template_name = "todoes/create.html"
 
     def form_valid(self, form):
         form.create_todo(user=self.request.user)
@@ -34,7 +34,7 @@ class CreateTodo(FormView):
 
 class UpdateTodo(UpdateView):
     fields = ["title", "simple_desc", "text"]
-    template_name = "todoes/update_todo.html"
+    template_name = "todoes/update.html"
     success_url = "/todoes/"
 
     def get_queryset(self):
@@ -44,7 +44,7 @@ class UpdateTodo(UpdateView):
 
 class DeleteTodo(DeleteView):
     model = Todo
-    template_name = "todoes/delete_todo.html"
+    template_name = "todoes/delete.html"
     success_url = "/todoes/"
 
     def get_queryset(self):

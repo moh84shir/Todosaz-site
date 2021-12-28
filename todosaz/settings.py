@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'todosaz_settings.apps.TodosazSettingsConfig',
     'todosaz_news.apps.TodosazNewsConfig',
     'todosaz_todoes.apps.TodosazTodoesConfig',
-    'todosaz_dashboard.apps.TodosazDashboardConfig',
     'todosaz_contact.apps.TodosazContactConfig',
 ]
 
