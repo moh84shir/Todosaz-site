@@ -32,14 +32,12 @@ class NewsList(ListView):
         return context
 
 
-# Detail View
 def new_detail(request, pk):
     """show the active new"""
     new = get_object_or_404(New, pk=pk, is_active=True)
     return render(request, "news/detail.html", {"new": new, "user": request.user})
 
 
-# Create new
 @login_required
 def create_new(request):
     """submit an news"""

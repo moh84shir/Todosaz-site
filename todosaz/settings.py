@@ -37,13 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
-    # my applications
+    # our applications
     'todosaz_accounts.apps.TodosazAccountsConfig',
     'todosaz_settings.apps.TodosazSettingsConfig',
     'todosaz_news.apps.TodosazNewsConfig',
     'todosaz_todoes.apps.TodosazTodoesConfig',
     'todosaz_contact.apps.TodosazContactConfig',
+    'todosaz_api.apps.TodosazApiConfig',
 ]
 
 MIDDLEWARE = [
