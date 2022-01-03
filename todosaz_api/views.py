@@ -3,7 +3,10 @@ from todosaz_news.models import New
 from todosaz_settings.models import Setting
 from todosaz_todoes.models import Todo
 from .serializers import TodoSerializer, NewSerializer, SettingSerializer
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    ListCreateAPIView, 
+    RetrieveUpdateDestroyAPIView
+)
 from .permissions import IsAdminUserOrReadOnly
 
 
