@@ -1,13 +1,40 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
+from todosaz_news.models import New
+from todosaz_settings.models import Setting
 from todosaz_todoes.models import Todo
-from .serializers import TodoSerializer
+from .serializers import TodoSerializer, NewSerializer, SettingSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-# Create your views here.
+
+# REST API FOR TODOES
+class TodoListCreate(ListCreateAPIView):
+    serializer_class = TodoSerializer
+    queryset = Todo.objects.all()
 
 
-@api_view(['GET'])
-def todo_list(request):
-    todoes = Todo.objects.all()
-    todoes_serializer = TodoSerializer(instance=todoes, many=True)
-    return Response(todoes_serializer.data)
+class TodoDetailUpdateDelete(RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+# REST API FOR NEWS
+class NewListCreate(ListCreateAPIView):
+    serializer_class = NewSerializer
+    queryset = New.objects.all()
+
+
+class NewDetailUpdateDelete(RetrieveUpdateDestroyAPIView):
+    queryset = New.objects.all()
+    serializer_class = NewSerializer
+
+
+# REST API FOR SETTINGS
+class SettingListCreate(ListCreateAPIView):
+    serializer_class = SettingSerializer
+    queryset = Setting.objects.all()
+
+
+class SettingDetailUpdateDelete(RetrieveUpdateDestroyAPIView):
+    queryset = Setting.objects.all()
+    serializer_class = SettingSerializer
+    permission_classes = [IsAdminUser]
