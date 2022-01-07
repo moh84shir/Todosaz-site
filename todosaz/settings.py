@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-
+    'rest_framework.authtoken',
     # our applications
     'todosaz_accounts.apps.TodosazAccountsConfig',
     'todosaz_settings.apps.TodosazSettingsConfig',
@@ -47,6 +47,14 @@ INSTALLED_APPS = [
     'todosaz_contact.apps.TodosazContactConfig',
     'todosaz_api.apps.TodosazApiConfig',
 ]
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES" : [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
