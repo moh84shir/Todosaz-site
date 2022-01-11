@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'captcha',
+
     # our applications
     'todosaz_accounts.apps.TodosazAccountsConfig',
     'todosaz_settings.apps.TodosazSettingsConfig',
@@ -148,3 +150,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "chertandpert120"
 EMAIL_HOST_PASSWORD = "passwordsadeh"
+
+
+# Google recaptcha Settings
+RECAPTCHA_PUBLIC_KEY = '6LfUswceAAAAADFiPUxnePtf3xK4mCpNekCI56VC'
+RECAPTCHA_PRIVATE_KEY = '6LfUswceAAAAABIoC8eT-xIk_AYANRrceweRggWX'

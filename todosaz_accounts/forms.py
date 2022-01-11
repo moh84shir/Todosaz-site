@@ -1,3 +1,5 @@
+from captcha.widgets import ReCaptchaV2Checkbox
+from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -7,6 +9,7 @@ from django.shortcuts import redirect
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     def login_user(self, request):
         username = self.cleaned_data.get("username")
@@ -22,11 +25,13 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     re_password = forms.CharField(widget=forms.PasswordInput)
 
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+
     def clean_re_password(self):
         cd = self.cleaned_data
-        if cd['password'] != cd['re_password']:
+        if cd["password"] != cd["re_password"]:
             raise forms.ValidationError("رمز های عبور مطابقت ندارند")
-        return cd['password']
+        return cd["password"]
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
@@ -51,9 +56,9 @@ class EditProfileForm(forms.Form):
     def edit_profile(self, user):
         cd = self.cleaned_data
 
-        first_name = cd['first_name'] if 'first_name' in cd else user.first_name
-        last_name = cd['last_name'] if 'last_name' in cd else user.last_name
-        email = cd['email'] if 'email' in cd else user.email
+        first_name = cd["first_name"] if "first_name" in cd else user.first_name
+        last_name = cd["last_name"] if "last_name" in cd else user.last_name
+        email = cd["email"] if "email" in cd else user.email
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
