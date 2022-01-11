@@ -1,20 +1,19 @@
-from captcha.widgets import ReCaptchaV2Checkbox
-from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.shortcuts import redirect
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     def login_user(self, request):
-        username = self.cleaned_data.get("username")
-        password = self.cleaned_data.get("password")
-        user = authenticate(username=username, password=password)
+        cd = self.cleaned_data
+        user = authenticate(username=cd["username"], password=cd["password"])
         if user is not None:
             login(request, user)
         self.add_error("username", "عملیات ورود با شکست مواجه شد")
@@ -24,8 +23,6 @@ class RegisterForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
     re_password = forms.CharField(widget=forms.PasswordInput)
-
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     def clean_re_password(self):
         cd = self.cleaned_data
