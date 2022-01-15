@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'font/Fontawesome/css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <!-- end css -->
+    <!-- set icon -->
+    <link rel="icon" href="{% static 'img/Todosaz.ico' %}">
+    <!-- set title -->
+    <title>تودو ساز - {% block title %}{% endblock title %}</title>
+</head>
+
+<body dir="rtl">
+    <nav class="nav-extended blue">
+        <div class="nav-wrapper">
+            <div class="container">
+                <h6 href="#" class="left brand-logo">تودو ساز</h6>
+            </div>
+            <a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="header">
+            <div class="nav-content">
+                <ul class="tabs tabs-transparent">
+                {% block tabs %}{% endblock tabs %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <ul class="sidenav pr-0" id="mobile-demo">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="assets/img/office.jpg" />
+                </div>
+                <a href="#user"><img class="circle" src="assets/img/account-picture.jpeg" /></a>
+                <a href="#name"><span class="white-text name">Mohammad Shirzad</span></a>
+                <a href="#email"><span class="white-text email">moh84shir@gmail.com</span></a>
+            </div>
+        </li>
+        <ul>
+            <li class="tab">
+                <p><i class="fa fa-cog"></i> <a href="!#test1">تنظیمات</a></p>
+            </li>
+            <li class="tab">
+                <p><i class="fa fa-user"></i> <a href="!#test2">حساب کاربری</a></p>
+            </li>
+            <li class="tab">
+                <p><i class="fa fa-envelope"></i> <a href="#test3">پیام ها</a></p>
+            </li>
+            <li class="tab">
+                <p><i class="fa fa-question"></i> <a href="#test">پرسش و پاسخ</a></p>
+            </li>
+            <li class="tab">
+                <div><i class="fa fa-heart"></i> <a href="#test">ثبت نظر</a></div>
+            </li>
+        </ul>
+    </ul>
+
+    <!-- content -->
+    <div class="mt-3">
+        <div id="test1" class="container">
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+    <!-- end content -->
+
+    <!-- js -->
+    <script src="{% static 'js/materialize.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        document.querySelector('textarea').classList.add('materialize-textarea')
+    </script>
+    <!-- end js -->
+</body>
+
+</html>

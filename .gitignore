@@ -4,3 +4,5 @@ venv/
 env/
 .venv/
 .idea/
+*.swp
+static/

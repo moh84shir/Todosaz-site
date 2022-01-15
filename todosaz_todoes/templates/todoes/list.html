@@ -1,10 +1,35 @@
-<a href="{% url 'todoes:create_todo' %}"><button>اضافه کردن تودو</button></a>
+{% extends 'shared/_MainLayout.html' %}
+{% load static %}
+{% block title %}لیست تودو ها{% endblock title %}
+{% block tabs %}
+<a href="{% url 'todoes:todo_list' %}">
+    <li class="tab">تودو ها</li>
+</a>
+<a href="{% url 'accounts:profile' %}">
+    <li class="tab">حساب کاربری</li>
+</a>
+{% endblock tabs %}
+{% block content %}
+<div class="fixed-action-btn">
+    <a href="{% url 'todoes:create_todo' %}" class="waves-effect btn-floating btn-large blue">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
 {% if todo_list %}
-<ol>
-    {% for todo in todo_list %}
-    <li><a href="{{ todo.get_absolute_url }}">{{ todo.title }}</a></li>
-    {% endfor %}
-</ol>
+<div class="col s9">
+    <ul class="collapsible todo-list">
+        {% for todo in todo_list %}
+        <li>
+            <div class="collapsible-header">
+                <a href="{% url 'todoes:todo_detail' todo.pk %}">
+                    {{ todo.title }}
+                </a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% else %}
-<p>شما تودویی ندارید یکی اضافه کنید</p>
+<p>شما هیچ تودویی ندارید. از طریق آیکن پایین صفحه میتوانید یکی اضافه کنید</p>
 {% endif %}
+{% endblock content %}

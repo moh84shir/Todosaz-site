@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'BYekan';
+    src: url('../font/BYekan/BYekan.ttf');
+}
+
+body {
+    font-family: BYekan, 'BYekan';
+    direction: rtl;
+    background-color: #f5f5f5;
+}
+
+* {
+    font-family: BYekan, 'BYekan';
+    direction: rtl;
+}
+
+button {
+    font-family: "BYekan", BYekan;
+}
+
+
+.sidenav {
+    width: 14rem;
+}
+
+nav .sidenav-trigger {
+    float: right;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-content {
+    display: table;
+    margin: auto 0;
+}
+
+.nav-content ul {
+    display: flex;
+}
+
+
+.sidenav.right-aligned {
+    padding-right: 0;
+}
+
+i {
+    font-size: 1.3rem !important;
+}
+
+.mt-3 {
+    margin-top: 1.5rem;
+}
+
+.todo-card {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 4rem !important;
+    margin: .2rem;
+}
+
+.mt-3 .row.active {
+    margin-right: -25%;
+}
+
+.row .col.s9.todo-card {
+    margin-left: .5rem;
+}
+
+.action-btns {
+    padding-bottom: 0;
+    margin-top: -1.5rem;
+    margin-bottom: 5px;
+}
+
+.action-btns span {
+    margin-bottom: 1.5rem;
+}
+
+ul.collapsible.todo-list {
+    padding-right: 0;
+}
+
+/* sing page */
+input::placeholder {
+    font-family: BYekan, 'BYekan';
+    font-size: small;
+}
+
+.p-3 {
+    padding: .5rem;
+}
+
+.card.medium {
+    height: unset !important;
+}
