@@ -13,7 +13,6 @@ class TodoList(ListView):
         context['user'] = self.request.user
         return context
 
-
     def get_queryset(self):
         usr = self.request.user
         return Todo.objects.filter(user=usr).order_by("-pk")
@@ -39,7 +38,7 @@ class CreateTodo(FormView):
 
 
 class UpdateTodo(UpdateView):
-    fields = ["title", "simple_desc", "text"]
+    fields = ["title", "text"]
     template_name = "todoes/update.html"
     success_url = "/todoes/"
 
