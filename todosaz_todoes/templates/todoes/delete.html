@@ -1,5 +1,14 @@
+{% extends 'shared/_MainLayout.html' %}
+{% block title %}حذف {{ todo.title }}{% endblock title %}
+{% block content %}
 <form method="post">
     {% csrf_token %}
-    <p>آیا واقعا می خواهی "{{ todo }}" را حذف کنی?</p>
-    <button type="submit">بله</button>
+    <h5>آیا واقعا می خواهی "{{ todo }}" را حذف کنی </h5>
+    <div class="center-align mt-3">
+        <button type="submit" class="btn waves-effect red">بله</button>
+        <button onclick="window.history.back()" class="btn waves-effect green">
+            خیر
+        </button>
+    </div>
 </form>
+{% endblock content %}

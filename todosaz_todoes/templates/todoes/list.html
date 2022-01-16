@@ -1,6 +1,7 @@
 {% extends 'shared/_MainLayout.html' %}
-{% load static %}
+
 {% block title %}لیست تودو ها{% endblock title %}
+
 {% block tabs %}
 <a href="{% url 'todoes:todo_list' %}">
     <li class="tab">تودو ها</li>
@@ -9,6 +10,11 @@
     <li class="tab">حساب کاربری</li>
 </a>
 {% endblock tabs %}
+
+{% block bar %}
+<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+{% endblock bar %}
+
 {% block content %}
 <div class="fixed-action-btn">
     <a href="{% url 'todoes:create_todo' %}" class="waves-effect btn-floating btn-large blue">
@@ -20,11 +26,11 @@
     <ul class="collapsible todo-list">
         {% for todo in todo_list %}
         <li>
-            <div class="collapsible-header">
-                <a href="{% url 'todoes:todo_detail' todo.pk %}">
+            <a href="{% url 'todoes:todo_detail' todo.pk %}">
+                <div class="collapsible-header">
                     {{ todo.title }}
-                </a>
-            </div>
+                </div>
+            </a>
         </li>
         {% endfor %}
     </ul>

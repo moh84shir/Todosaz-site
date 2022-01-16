@@ -1,44 +1,97 @@
-<p>نام کاربری :{{ username }}</p>
+{% extends 'shared/_MainLayout.html' %}
+{% load static %}
 
-<!-- first name -->
-<p> نام :
-    {% if first_name %}
-        {{ first_name }}
-    {% else %}
-        <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
-    {% endif %}
-</p>
+{% block tabs %}
+<a href="{% url 'todoes:todo_list' %}">
+    <li class="tab">تودو ها</li>
+</a>
+<a href="{% url 'accounts:profile' %}">
+    <li class="tab">حساب کاربری</li>
+</a>
+{% endblock tabs %}
 
+{% block bar %}
+<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+{% endblock bar %}
 
-<!-- last name -->
-<p> نام خانوادگی :
-    {% if last_name %}
-        {{ last_name }}
-    {% else %}
-        <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
-    {% endif %}
-</p>
-
-
-<!-- user todo count -->
-{% if todo_count != 0 %}
-    <p>
-        تعداد تودو های شما :
-        {{ todo_count }}
-    </p>
-{% else %}
-    <p>شما هیچ تودویی ندارید. <a href="{% url 'todoes:create_todo' %}">یکی بسازید</a></p>
-{% endif %}
-
-<!-- email -->
-<p> ایمیل :
-    {% if email %}
-        {{ email }}
-    {% else %}
-        <a href="{% url 'accounts:edit_profile' user.pk %}">کامل کنید</a>
-    {% endif %}
-</p>
-
-<p>
-    <a href="{% url 'accounts:edit_profile' user.pk %}">ویرایش حساب کاربری</a>
-</p>
+{% block title %}پروفایل شما{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card medium">
+            <div class="card-image"
+                style="display: flex; justify-content: space-evenly; align-items: center; padding: .2rem;">
+                <img style="border-radius: 50%;width: 50%;" src="{% static 'img/account-picture.jpeg' %}" />
+                {% if first_name and last_name %}
+                <h5>{{ first_name }} {{ last_name }}</h5>
+                {% else %}
+                <a href="{% url 'accounts:edit_profile' user.pk %}">نام خود را کامل کنید</a>
+                {% endif %}
+            </div>
+            <div class="card-content">
+                <p>
+                    برنامه نویس فول استک جنگو و ری اکت وی در سال ۱۳۸۴ چشم به جهان
+                    گشود و در سال ۱۳۹۹ وارد حوزه ی برنامه نویسی شد بعد از حدود یک
+                    سال برنامه نویس بک اند شد در سال دوم با یادگیری زبان ها و
+                    فریمورک های فرانت تبدیل به فول استک دولوپر شد
+                    برنامه نویس فول استک جنگو و ری اکت وی در سال ۱۳۸۴ چشم به جهان
+                    گشود و در سال ۱۳۹۹ وارد حوزه ی برنامه نویسی شد بعد از حدود یک
+                    سال برنامه نویس بک اند شد در سال دوم با یادگیری زبان ها و
+                    فریمورک های فرانت تبدیل به فول استک دولوپر شد
+                    برنامه نویس فول استک جنگو و ری اکت وی در سال ۱۳۸۴ چشم به جهان
+                    گشود و در سال ۱۳۹۹ وارد حوزه ی برنامه نویسی شد بعد از حدود یک
+                    سال برنامه نویس بک اند شد در سال دوم با یادگیری زبان ها و
+                    فریمورک های فرانت تبدیل به فول استک دولوپر شد
+                </p>
+                <div class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card small" style="height: 25pc;">
+            <div class="card-title" style="padding-top: .1rem;padding-right: .2rem;">
+                <h5>
+                    اطلاعات حساب کاربری
+                </h5>
+            </div>
+            <div class="card-content">
+                <p>
+                <div class="mt-3 row">
+                    <label for="username">نام کاربری</label>
+                    <h6 id="username">{{ username }}</h6>
+                </div>
+                <div class="mt-3 row">
+                    <label for="eamil">ایمیل</label>
+                    <h6 id="email">{{ email }}</h6>
+                </div>
+                <div class="mt-3 row">
+                    <label for="username">تعداد تودو ها</label>
+                    {% if todo_count != 0 %}
+                    <h6 id="username">{{ todo_count }}</h6>
+                    {% else %}
+                    <p>شما هیچ تودویی ندارید. <a href="{% url 'todoes:create_todo' %}">یکی بسازید</a></p>
+                    {% endif %}
+                </div>
+                </p>
+                <div class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m3 s6">
+            <a href="{% url 'accounts:edit_profile' user.pk %}">
+                <button class="btn mt-3 waves-effect blue">
+                    ویرایش حساب
+                </button>
+            </a>
+        </div>
+        <div class="col m3 s6">
+            <a href="{% url 'accounts:del_account' %}">
+                <button class="btn waves-effect red mt-3">
+                    حذف حساب
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
