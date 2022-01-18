@@ -1,14 +1,7 @@
 {% extends 'shared/_MainLayout.html' %}
 {% load static %}
 
-{% block tabs %}
-<a href="{% url 'todoes:todo_list' %}">
-    <li class="tab">تودو ها</li>
-</a>
-<a href="{% url 'accounts:profile' %}">
-    <li class="tab">حساب کاربری</li>
-</a>
-{% endblock tabs %}
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
 {% block bar %}
 <a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
@@ -78,16 +71,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="col m3 s6">
+        <div class="col m6 s12">
             <a href="{% url 'accounts:edit_profile' user.pk %}">
-                <button class="btn mt-3 waves-effect blue">
+                <button class="w-100 btn mt-3 waves-effect blue">
                     ویرایش حساب
                 </button>
             </a>
         </div>
-        <div class="col m3 s6">
+        <div class="col m6 s12">
+            <a href="{% url 'accounts:logout' %}">
+                <button class="w-100 btn mt-3 waves-effect blue">
+                    خروج از حساب
+                </button>
+            </a>
+        </div>
+        <div class="col m6 s12">
             <a href="{% url 'accounts:del_account' %}">
-                <button class="btn waves-effect red mt-3">
+                <button class="w-100 btn waves-effect red mt-3">
                     حذف حساب
                 </button>
             </a>

@@ -2,14 +2,7 @@
 
 {% block title %}لیست تودو ها{% endblock title %}
 
-{% block tabs %}
-<a href="{% url 'todoes:todo_list' %}">
-    <li class="tab">تودو ها</li>
-</a>
-<a href="{% url 'accounts:profile' %}">
-    <li class="tab">حساب کاربری</li>
-</a>
-{% endblock tabs %}
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
 {% block bar %}
 <a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
@@ -26,7 +19,7 @@
     <ul class="collapsible todo-list">
         {% for todo in todo_list %}
         <li>
-            <a href="{% url 'todoes:todo_detail' todo.pk %}">
+            <a href="{{ todo.get_absolute_url }}">
                 <div class="collapsible-header">
                     {{ todo.title }}
                 </div>

@@ -2,10 +2,13 @@ from django.views.generic.edit import UpdateView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.list import ListView
 from django.views.generic.base import View
+
+from todosaz_todoes.models import Todo
 from .models import New
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from .forms import CreateNewForm
+from django.views.generic.edit import DeleteView
 
 
 class SuperUserRequired(View):
@@ -23,7 +26,7 @@ class SuperUserRequired(View):
 class NewsList(ListView):
     """ show the active news list """
 
-    queryset = New.objects.filter(is_active=True)
+    model = Todo
     template_name = "news/list.html"
 
     def get_context_data(self, **kwargs):
@@ -34,7 +37,7 @@ class NewsList(ListView):
 
 def new_detail(request, pk):
     """show the active new"""
-    new = get_object_or_404(New, pk=pk, is_active=True)
+    new = get_object_or_404(New, pk=pk)
     return render(request, "news/detail.html", {"new": new, "user": request.user})
 
 
@@ -58,6 +61,12 @@ def delete_new(request, pk):
         new.delete()
         return redirect("/news/")
     raise PermissionDenied  # 403 (forbidden)
+
+
+class DeleteNew(DeleteView, SuperUserRequired):
+    model = New
+    template_name = 'news/delete.html'
+    success_url = '/news/'
 
 
 class UpdateNew(SuperUserRequired, UpdateView):

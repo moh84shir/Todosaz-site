@@ -38,7 +38,7 @@ class CreateTodo(FormView):
 
 
 class UpdateTodo(UpdateView):
-    fields = ["title", "text"]
+    fields = ["title", "text", "is_active"]
     template_name = "todoes/update.html"
     success_url = "/todoes/"
 

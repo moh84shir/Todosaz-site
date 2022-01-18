@@ -1,5 +1,17 @@
+{% extends 'shared/_MainLayout.html' %}
+{% block title %}تماس با ما{% endblock title %}
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
+
+{% block bar %}
+<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+{% endblock bar %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ارسال</button>
+    <div class="input-field materialize-textarea">{{ form.as_p }}</div>
+    <div class="center-align">
+        <button type="submit" class="btn waves-effect blue">ارسال پیام</button>
+    </div>
 </form>
+{% endblock content %}

@@ -1,3 +1,37 @@
+{% extends 'shared/_MainLayout.html' %}
+
+{% block title %} {{ new.title }} {% endblock title %}
+
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
+
+{% block bar %}
+<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+{% endblock bar %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ new.title }}</span>
+                <p>{{ new.text }}</p>
+            </div>
+            {% if user.is_superuser %}
+            <div class="card-action">
+                <a href="{% url 'news:edit_new' new.pk %}">
+                    <button class="btn btn-small waves-effect green">ویرایش</button>
+                </a>
+                <a href="{% url 'news:delete_new' new.pk %}">
+                    <button class="btn btn-small waves-effect red">حذف</button>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% comment %} 
 <p>{{ new.title }}</p>
 <p>{{ new.simple_desc }}</p>
 <p>{{ new.pub_date }}</p>
@@ -15,4 +49,4 @@
     <a href="{% url 'news:edit_new' new.pk %}"><button>ویرایش</button></a>
     <a href="{% url 'news:delete_new' new.pk %}"><button>حذف</button></a>
 </p>
-{% endif %}
+{% endif %} {% endcomment %}

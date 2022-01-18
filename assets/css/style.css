@@ -97,3 +97,7 @@ input::placeholder {
 .card.medium {
     height: unset !important;
 }
+
+.w-100 {
+    width: 100%;
+}

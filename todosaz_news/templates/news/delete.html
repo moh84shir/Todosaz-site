@@ -1,5 +1,5 @@
 {% extends 'shared/_MainLayout.html' %}
-{% block title %}حذف {{ todo.title }}{% endblock title %}
+{% block title %}حذف {{ new.title }}{% endblock title %}
 
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
@@ -10,7 +10,7 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    <h5>آیا واقعا می خواهی "{{ todo }}" را حذف کنی </h5>
+    <h5>آیا واقعا می خواهی "{{ new }}" را حذف کنی </h5>
     <div class="center-align mt-3">
         <button type="submit" class="btn waves-effect red">بله</button>
         <button onclick="window.history.back()" class="btn waves-effect green">

@@ -1,3 +1,40 @@
+{% extends 'shared/_MainLayout.html' %}
+
+{% block title %}لیست اخبار{% endblock title %}
+
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
+
+{% block bar %}
+<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+{% endblock bar %}
+
+{% block content %}
+{% if is_superuser %}
+<div class="fixed-action-btn">
+    <a href="{% url 'news:create_new' %}" class="waves-effect btn-floating btn-large blue">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
+{% endif %}
+{% if new_list %}
+<div class="col s9">
+    <ul class="collapsible todo-list">
+        {% for new in new_list %}
+        <li>
+            <a href="{{ new.get_absolute_url }}">
+                <div class="collapsible-header">
+                    {{ new.title }}
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p>خبری برای شما موجود نیست</p>
+{% endif %}
+{% endblock content %}
+{% comment %} 
 {% if is_superuser %}
 <a href="{% url 'news:create_new' %}"><button>اضافه کردن خبر</button></a>
 {% endif %}
@@ -8,5 +45,4 @@
     {% endfor %}
 </ol>
 {% else %}
-<p>خبری برای شما موجود نیست</p>
-{% endif %}
+{% endif %} {% endcomment %}
