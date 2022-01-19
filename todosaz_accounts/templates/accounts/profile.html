@@ -12,14 +12,22 @@
 <div class="row">
     <div class="col s12 m6">
         <div class="card medium">
-            <div class="card-image"
-                style="display: flex; justify-content: space-evenly; align-items: center; padding: .2rem;">
-                <img style="border-radius: 50%;width: 50%;" src="{% static 'img/account-picture.jpeg' %}" />
-                {% if first_name and last_name %}
-                <h5>{{ first_name }} {{ last_name }}</h5>
-                {% else %}
-                <a href="{% url 'accounts:edit_profile' user.pk %}">نام خود را کامل کنید</a>
-                {% endif %}
+            <div class="card-image" style="padding: .2rem;
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                justify-content: center;
+                flex-wrap: wrap;">
+                <img style="border-radius: 9999px;width: 7em;height: 100%;" src="{{ profile_image.get_image_url }}" />
+                <div class="row center-align">
+                    {% if first_name and last_name %}
+                    <div class="row">
+                        <h6>{{ first_name }} {{ last_name }}</h6>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'accounts:edit_profile' user.pk %}">نام خود را کامل کنید</a>
+                    {% endif %}
+                </div>
             </div>
             <div class="card-content">
                 <p>
@@ -35,6 +43,16 @@
                     گشود و در سال ۱۳۹۹ وارد حوزه ی برنامه نویسی شد بعد از حدود یک
                     سال برنامه نویس بک اند شد در سال دوم با یادگیری زبان ها و
                     فریمورک های فرانت تبدیل به فول استک دولوپر شد
+
+                <div class="mt-3">
+                    <div class="row">
+                        <a href="{% url 'accounts:change_profile_image' %}">
+                            <button style="margin-bottom: -50px;" class="w-100 btn waves-effect green">
+                                تغییر عکس پروفایل
+                            </button>
+                        </a>
+                    </div>
+                </div>
                 </p>
                 <div class="mt-3"></div>
             </div>
@@ -71,27 +89,35 @@
         </div>
     </div>
     <div class="row">
-        <div class="col m6 s12">
+        <div class="col m3 s12">
             <a href="{% url 'accounts:edit_profile' user.pk %}">
-                <button class="w-100 btn mt-3 waves-effect blue">
+                <button class="w-100 btn mt-3 waves-effect green">
                     ویرایش حساب
                 </button>
             </a>
         </div>
-        <div class="col m6 s12">
+        <div class="col m3 s12">
             <a href="{% url 'accounts:logout' %}">
                 <button class="w-100 btn mt-3 waves-effect blue">
                     خروج از حساب
                 </button>
             </a>
         </div>
-        <div class="col m6 s12">
+        <div class="col m3 s12">
             <a href="{% url 'accounts:del_account' %}">
                 <button class="w-100 btn waves-effect red mt-3">
                     حذف حساب
                 </button>
             </a>
         </div>
+        <div class="col m3 s12">
+            <a href="{% url 'contact:contact' %}">
+                <button class="w-100 btn waves-effect purple mt-3">
+                    تماس با ما
+                </button>
+            </a>
+        </div>
+
     </div>
 </div>
 {% endblock content %}

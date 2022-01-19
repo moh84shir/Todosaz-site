@@ -1,14 +1,12 @@
-from django.views.generic.edit import UpdateView
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic.list import ListView
-from django.views.generic.base import View
-
-from todosaz_todoes.models import Todo
-from .models import New
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic.base import View
+from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.list import ListView
+
 from .forms import CreateNewForm
-from django.views.generic.edit import DeleteView
+from .models import New
 
 
 class SuperUserRequired(View):
@@ -25,8 +23,7 @@ class SuperUserRequired(View):
 
 class NewsList(ListView):
     """ show the active news list """
-
-    model = Todo
+    model = New
     template_name = "news/list.html"
 
     def get_context_data(self, **kwargs):
@@ -50,7 +47,7 @@ def create_new(request):
             form.create_new()
             return redirect("/news/")
         return render(request, "news/create.html", {"form": form})
-    raise PermissionDenied  # 403 (forbidden)
+    raise PermissionDenied
 
 
 @login_required
@@ -60,7 +57,7 @@ def delete_new(request, pk):
         new = get_object_or_404(New, pk=pk)
         new.delete()
         return redirect("/news/")
-    raise PermissionDenied  # 403 (forbidden)
+    raise PermissionDenied
 
 
 class DeleteNew(DeleteView, SuperUserRequired):
@@ -70,7 +67,7 @@ class DeleteNew(DeleteView, SuperUserRequired):
 
 
 class UpdateNew(SuperUserRequired, UpdateView):
-    """edit an news (inheritance from 'CheckSuperUser' for check permission)"""
+    """edit an news """
 
     model = New
     fields = ["title", "short_desc", "text", "is_active"]

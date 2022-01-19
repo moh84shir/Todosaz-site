@@ -1,0 +1,32 @@
+{% extends 'shared/_MainLayout.html' %}
+{% block title %}تغییر پروفایل{% endblock title %}
+{% block content %}
+<div class="profile">
+    <div class="row center-align">
+        <form action="{% url 'accounts:change_profile_image' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                {{ message }}
+            </div>
+
+            <div class="row">
+                <p>{{ form.image.label_tag }} {{ form.image.help_text }}</p>
+            </div>
+
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>عکس</span>
+                        {{ form.image }}
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <p><input type="submit" class="btn blue waves-effect" value="تغییر" /></p>
+    </div>
+    </form>
+</div>
+{% endblock content %}

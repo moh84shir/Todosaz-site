@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from todosaz_news.models import New
@@ -10,12 +11,8 @@ from todosaz_settings.models import Setting
 from todosaz_todoes.models import Todo
 
 from .permissions import IsAdminUserOrReadOnly
-from .serializers import (
-    NewSerializer,
-    SettingSerializer,
-    TodoSerializer,
-    UserSerializer,
-)
+from .serializers import (NewSerializer, SettingSerializer, TodoSerializer,
+                          UserSerializer)
 
 
 class TodoListCreate(ListCreateAPIView):

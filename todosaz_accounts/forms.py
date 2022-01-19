@@ -4,12 +4,14 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import redirect
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from django.urls import reverse
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    username = forms.CharField(label="نام کاربری")
+    password = forms.CharField(widget=forms.PasswordInput, label="رمز عبور")
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
 
     def login_user(self, request):
         cd = self.cleaned_data
@@ -20,9 +22,12 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    re_password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label="نام کاربری")
+    password = forms.CharField(widget=forms.PasswordInput, label="رمز عبور")
+    re_password = forms.CharField(
+        widget=forms.PasswordInput, label="تایید رمز عبور")
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
 
     def clean_re_password(self):
         cd = self.cleaned_data
@@ -41,8 +46,9 @@ class RegisterForm(forms.Form):
 
     def register_user(self):
         cd = self.cleaned_data
-        User.objects.create_user(username=cd["username"], password=cd["password"])
-        return redirect("/accounts/login/")
+        User.objects.create_user(
+            username=cd["username"], password=cd["password"])
+        return redirect(reverse('accounts:login'))
 
 
 class EditProfileForm(forms.Form):
@@ -53,10 +59,13 @@ class EditProfileForm(forms.Form):
     def edit_profile(self, user):
         cd = self.cleaned_data
 
-        first_name = cd["first_name"] if "first_name" in cd else user.first_name
-        last_name = cd["last_name"] if "last_name" in cd else user.last_name
-        email = cd["email"] if "email" in cd else user.email
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = email
+        user.first_name = cd['first_name']
+        user.last_name = cd['last_name']
+        user.email = cd['email']
         user.save()
+
+
+class AddOrChangeProfileImageForm(forms.Form):
+    image = forms.ImageField(
+        label="لطفا پروفایل جدید خودتان را انتخاب کنید",
+    )

@@ -34,15 +34,3 @@
 <p>خبری برای شما موجود نیست</p>
 {% endif %}
 {% endblock content %}
-{% comment %} 
-{% if is_superuser %}
-<a href="{% url 'news:create_new' %}"><button>اضافه کردن خبر</button></a>
-{% endif %}
-{% if new_list %}
-<ol>
-    {% for new in new_list %}
-    <li><a href="{{ new.get_absolute_url }}">{{ new.title }}</a></li>
-    {% endfor %}
-</ol>
-{% else %}
-{% endif %} {% endcomment %}

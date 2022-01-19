@@ -9,5 +9,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var collapsible = document.querySelectorAll('.collapsible');
   M.Collapsible.init(collapsible, {});
-  document.querySelector('textarea').classList.add('materialize-textarea');
 });

@@ -3,7 +3,10 @@
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
 {% block bar %}
-<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
+<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger">
+    <i class="fa fa-bars">
+    </i>
+</a>
 {% endblock bar %}
 
 {% block content %}
@@ -14,6 +17,9 @@
             {{ form.as_p }}
         </div>
     </label>
+        {% for error in form.errors %}
+            <p class="red-text">{{ error }}</p>
+        {% endfor %}
     <div class="center-align">
         <button type="submit" class="btn waves-effect blue">اضافه کردن خبر</button>
     </div>

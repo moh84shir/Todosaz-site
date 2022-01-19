@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/', include('todosaz_accounts.urls')),
     path('news/', include('todosaz_news.urls')),
     path('settings/', include('todosaz_settings.urls')),
+    path('contact/', include('todosaz_contact.urls')),
     path('api/', include('todosaz_api.urls')),
-    path('', include('todosaz_contact.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

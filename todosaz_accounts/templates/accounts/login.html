@@ -1,5 +1,14 @@
+{% extends 'shared/_MainLayout.html' %}
+{% block title %}ورود{% endblock title %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ورود</button>
+        <div class="input-field">
+            {{ form.as_p }}
+        </div>
+    <div class="center-align">
+        <button type="submit" class="btn waves-effect blue">ورود</button>
+    </div>
 </form>
+{% endblock content %}
