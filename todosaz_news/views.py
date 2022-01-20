@@ -70,6 +70,6 @@ class UpdateNew(SuperUserRequired, UpdateView):
     """edit an news """
 
     model = New
-    fields = ["title", "short_desc", "text", "is_active"]
+    fields = ["title", "text"]
     template_name = "news/update.html"
     success_url = "/news/"

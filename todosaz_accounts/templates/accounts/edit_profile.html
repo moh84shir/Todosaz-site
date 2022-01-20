@@ -1,17 +1,8 @@
 {% extends 'shared/_MainLayout.html' %}
 {% block title %}ویرایش {{ object }} {% endblock title %}
-{% block tabs %}
-<a href="{% url 'todoes:todo_list' %}">
-    <li class="tab">تودو ها</li>
-</a>
-<a href="{% url 'accounts:profile' %}">
-    <li class="tab">حساب کاربری</li>
-</a>
-{% endblock tabs %}
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
-{% block bar %}
-<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
-{% endblock bar %}
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
 
 {% block content %}
 <form method="POST">
@@ -22,8 +13,3 @@
     </div>
 </form>
 {% endblock content %}
-{% comment %} <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ثبت ویرایش ها</button>
-</form> {% endcomment %}

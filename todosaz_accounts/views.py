@@ -1,13 +1,14 @@
-from .models import AboutUser
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic.edit import UpdateView
-from django.shortcuts import render, redirect
-from .models import ProfileImage
 from todosaz_todoes.models import Todo
-from .forms import LoginForm, RegisterForm, AddOrChangeProfileImageForm
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+
+from .forms import (AddOrChangeProfileImageForm, ChangeAboutForm, LoginForm,
+                    RegisterForm)
+from .models import AboutUser, ProfileImage
 
 
 def login(request):
@@ -48,7 +49,7 @@ def user_profile(request):
     profile_image = ProfileImage.objects.filter(user=user).last()
     todo_count = Todo.objects.filter(user=user).count()
     try:
-        about = AboutUser.objects.get(user=user).about
+        about = AboutUser.objects.filter(user=user).last().about
     except:
         about = None
 
@@ -60,7 +61,7 @@ def user_profile(request):
         'email': email,
         'todo_count': todo_count,
         'profile_image': profile_image,
-        'about':about,
+        'about': about,
     }
     return render(request, 'accounts/profile.html', context)
 
@@ -83,13 +84,12 @@ def logout_user(request):
 
 @login_required(login_url='/accounts/login/')
 def change_profile_image(request):
-    '''
-        create user profile if not exists 
-        and change user profile if exists
-    '''
     if request.method == 'POST':
         form = AddOrChangeProfileImageForm(request.POST, request.FILES)
         if form.is_valid():
+            user = request.user
+            ProfileImage.objects.filter(user=user).delete()
+
             ProfileImage.objects.create(
                 image=request.FILES['image'], user=request.user)
 
@@ -101,3 +101,18 @@ def change_profile_image(request):
 
     context = {'form': form}  # send form if get method of request
     return render(request, 'accounts/change_profile.html', context)
+
+
+@login_required
+def edit_about(request):
+    user = request.user
+    about_object = AboutUser.objects.filter(user=user).last()
+    form = ChangeAboutForm(request.POST or None, initial={'about':about_object.about})
+    if form.is_valid():
+        cd = form.cleaned_data
+
+        about_object.about = cd['about']
+        about_object.save()
+        return redirect(reverse('accounts:profile'))
+
+    return render(request, 'accounts/edit_about.html', {'form': form})

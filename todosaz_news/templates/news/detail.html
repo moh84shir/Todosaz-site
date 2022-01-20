@@ -4,9 +4,7 @@
 
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
-{% block bar %}
-<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
-{% endblock bar %}
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
 
 {% block content %}
 <div class="row">
@@ -30,23 +28,3 @@
     </div>
 </div>
 {% endblock content %}
-
-{% comment %} 
-<p>{{ new.title }}</p>
-<p>{{ new.simple_desc }}</p>
-<p>{{ new.pub_date }}</p>
-<p> Is Active? 
-    {% if new.is_active %}
-        Yes
-    {% else %}
-        No
-    {% endif %}
-</p>
-<p>{{ new.text }}</p>
-
-{% if user.is_superuser %}
-<p>
-    <a href="{% url 'news:edit_new' new.pk %}"><button>ویرایش</button></a>
-    <a href="{% url 'news:delete_new' new.pk %}"><button>حذف</button></a>
-</p>
-{% endif %} {% endcomment %}

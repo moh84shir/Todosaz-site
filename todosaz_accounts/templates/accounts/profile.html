@@ -1,13 +1,11 @@
 {% extends 'shared/_MainLayout.html' %}
-{% load static %}
 
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
-{% block bar %}
-<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
-{% endblock bar %}
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
 
 {% block title %}پروفایل شما{% endblock title %}
+
 {% block content %}
 <div class="row">
     <div class="col s12 m6">
@@ -32,16 +30,24 @@
             <div class="card-content">
                 <p>
                     {% if about %}
-                        {{ about }}
+                    {{ about }}
                     {% else %}
-                        <div style="text-align: center;"><a href="#">درباره ی خودتان بنویسید</a></div>
-                    {% endif %}
+                <div style="text-align: center;">
+                    <a href="{% url 'accounts:edit_about' %}">درباره ی خودتان بنویسید</a>
+                </div>
+                {% endif %}
                 <div class="mt-3">
                     <div class="row">
-                        <a href="{% url 'accounts:change_profile_image' %}">
-                            <button style="margin-bottom: -50px;" class="w-100 btn waves-effect green">
-                                تغییر عکس پروفایل
-                            </button>
+
+                        <div style="margin-bottom: -50px;display:flex;justify-content:space-around;flex-wrap: wrap;padding: .5rem;"
+                            class="w-100">
+                            <a class="mb-3" href="{% url 'accounts:change_profile_image' %}">
+                                <button class="btn waves-effect green">تغییر عکس پروفایل</button>
+                            </a>
+                            <a class="mb-3" href="{% url 'accounts:edit_about' %}">
+                                <button class="btn waves-effect blue">ویرایش درباره ی من</button>
+                            </a>
+                        </div>
                         </a>
                     </div>
                 </div>

@@ -4,9 +4,7 @@
 
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
-{% block bar %}
-<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
-{% endblock bar %}
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
 
 {% block content %}
 {% if is_superuser %}

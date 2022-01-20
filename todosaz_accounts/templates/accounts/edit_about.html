@@ -1,6 +1,6 @@
 {% extends 'shared/_MainLayout.html' %}
 
-{% block title %}انتشار خبر{% endblock title %}
+{% block title %}ویرایش درباره ی شما{% endblock title %}
 
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
@@ -9,13 +9,9 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    <label>
-        <div class="input-field">
-            {{ form.as_p }}
-        </div>
-    </label>
+    <div class="input-field materialize-textarea">{{ form.as_p }}</div>
     <div class="center-align">
-        <button type="submit" class="btn waves-effect blue">ثبت تنظیمات</button>
+        <button type="submit" class="btn waves-effect blue">ثبت تغییرات</button>
     </div>
 </form>
 {% endblock content %}

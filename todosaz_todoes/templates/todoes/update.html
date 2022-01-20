@@ -4,24 +4,13 @@
 
 {% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
 
-{% block bar %}
-<a href="#" data-target="mobile-demo" class="center-align sidenav-trigger"><i class="fa fa-bars"></i></a>
-{% endblock bar %}
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
 
 {% block content %}
 <form method="POST">
     {% csrf_token %}
     <div class="input-field">
-    <div class="row">
-    {{ form.title }}
-    </div>
-    <div class="row">
-    {{ form.text }}
-    </div>
-    <div class="row">
-        
-        <input type="checkbox" name="is_active" id="id_is_active">
-    </div>    
+        {{ form.as_p }}    
     </div>
     <div class="center-align">
         <button type="submit" class="btn waves-effect blue">ثبت تغییرات</button>

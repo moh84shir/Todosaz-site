@@ -1,5 +1,19 @@
-<form method="post">
+{% extends 'shared/_MainLayout.html' %}
+
+{% block title %}ویرایش {{ object }} {% endblock title %}
+
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
+
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
+
+{% block content %}
+<form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ثبت ویرایش ها</button>
+    <div class="input-field">
+        {{ form.as_p }}    
+    </div>
+    <div class="center-align">
+        <button type="submit" class="btn waves-effect blue">ثبت تغییرات</button>
+    </div>
 </form>
+{% endblock content %}

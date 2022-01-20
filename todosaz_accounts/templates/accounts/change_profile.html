@@ -1,5 +1,11 @@
 {% extends 'shared/_MainLayout.html' %}
+
 {% block title %}تغییر پروفایل{% endblock title %}
+
+{% block tabs %} {% include "components/tabs.html" %} {% endblock tabs %}
+
+{% block bar %} {% include "components/bars.html" %} {% endblock bar %}
+
 {% block content %}
 <div class="profile">
     <div class="row center-align">
@@ -15,7 +21,7 @@
 
             <div class="row">
                 <div class="file-field input-field">
-                    <div class="btn">
+                    <div class="btn green">
                         <span>عکس</span>
                         {{ form.image }}
                     </div>
@@ -25,7 +31,7 @@
                 </div>
             </div>
 
-            <p><input type="submit" class="btn blue waves-effect" value="تغییر" /></p>
+            <button type="submit" class="btn blue waves-effect"/>تغییر</button>
     </div>
     </form>
 </div>

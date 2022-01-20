@@ -69,3 +69,8 @@ class AddOrChangeProfileImageForm(forms.Form):
     image = forms.ImageField(
         label="لطفا پروفایل جدید خودتان را انتخاب کنید",
     )
+
+
+
+class ChangeAboutForm(forms.Form):
+    about = forms.CharField()
