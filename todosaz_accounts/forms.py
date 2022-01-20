@@ -1,3 +1,4 @@
+from .models import AboutUser
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -26,8 +27,8 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput, label="رمز عبور")
     re_password = forms.CharField(
         widget=forms.PasswordInput, label="تایید رمز عبور")
-    captcha = ReCaptchaField(
-        widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
+    # captcha = ReCaptchaField(
+    #   widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
 
     def clean_re_password(self):
         cd = self.cleaned_data
@@ -46,8 +47,9 @@ class RegisterForm(forms.Form):
 
     def register_user(self):
         cd = self.cleaned_data
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=cd["username"], password=cd["password"])
+        AboutUser.objects.create(user=user, about="")
         return redirect(reverse('accounts:login'))
 
 
@@ -73,4 +75,6 @@ class AddOrChangeProfileImageForm(forms.Form):
 
 
 class ChangeAboutForm(forms.Form):
-    about = forms.CharField()
+    about = forms.CharField(
+        label="درباره ی شما"
+    )

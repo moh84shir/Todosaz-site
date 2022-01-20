@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="fixed-action-btn">
-    <a href="{% url 'todoes:create_todo' %}" class="waves-effect btn-floating btn-large blue">
+    <a href="{% url 'todoes:create_todo' %}" class="waves-effect btn-floating btn-large black">
         <i class="fas fa-plus"></i>
     </a>
 </div>
@@ -18,7 +18,7 @@
         {% for todo in todo_list %}
         <li>
             <a href="{{ todo.get_absolute_url }}">
-                <div class="collapsible-header">
+                <div class="collapsible-header grey darken-4">
                     {{ todo.title }}
                 </div>
             </a>

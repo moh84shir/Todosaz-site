@@ -12,7 +12,7 @@ from .models import AboutUser, ProfileImage
 
 
 def login(request):
-    next_url = request.GET['next'] if 'next' in request.GET else '/'
+    next_url = request.GET['next'] if 'next' in request.GET else reverse('accounts:profile')
     if not request.user.is_authenticated:
         form = LoginForm(request.POST or None)
         if form.is_valid():
@@ -23,7 +23,7 @@ def login(request):
 
 
 def register(request):
-    next_url = request.GET['next'] if 'next' in request.GET else '/'
+    next_url = request.GET['next'] if 'next' in request.GET else reverse('accounts:profile')
     if not request.user.is_authenticated:
         form = RegisterForm(request.POST or None)
         if form.is_valid():
