@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-
+from .views import home
 
 urlpatterns = [
+    path('', home, name='home'),
     path('todoes/', include('todosaz_todoes.urls')),
     path('accounts/', include('todosaz_accounts.urls')),
     path('news/', include('todosaz_news.urls')),

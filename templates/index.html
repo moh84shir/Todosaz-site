@@ -1,0 +1,31 @@
+{% extends "shared/_MainLayout.html" %}
+{% block title %}خانه{% endblock title %}
+
+{% block content %}
+<h6 class="white-text">
+    سلام. این یک پروژه ی متن باز هستش
+    به نام تودو ساز که میتونید از طریق <a href="#">لینک گیت هاب</a>
+    سورسش رو ببینید
+    این پروژه برای مدیریت کارهای روزانه ی افراد ساخته شده.
+    امیدوارم به خوبی استفاده کنید :)
+    <br>
+    {% if is_authenticated %}
+        <a href="{% url 'accounts:profile' %}">
+            <button class="btn btn-large waves-effect grey white-text">
+                ورود به بخش کاربری
+            </button>
+        </a>
+    {% else %}
+        <a href="{% url 'accounts:login' %}">
+            <button class="btn btn-large waves-effect grey white-text">
+                ورود
+            </button>
+        </a>
+        <a href="{% url 'accounts:register' %}">
+            <button class="btn btn-large waves-effect grey white-text">
+                ثبت نام
+            </button>
+        </a>
+    {% endif %}
+</h6>
+{% endblock content %}
