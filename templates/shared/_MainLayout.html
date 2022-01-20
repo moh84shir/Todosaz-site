@@ -6,13 +6,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- css -->
     <link rel="stylesheet" href="{% static 'font/Fontawesome/css/all.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <!-- end css -->
+
     <!-- set icon -->
     <link rel="icon" href="{% static 'img/Todosaz.ico' %}">
+
     <!-- set title -->
     <title>تودو ساز - {% block title %}{% endblock title %}</title>
 </head>
@@ -20,8 +23,8 @@
 <body class="grey darken-3"  dir="rtl">
     <nav class="nav-extended grey darken-4 white-text">
         <div class="nav-wrapper">
-            <div class="container">
-                <h6 href="#" class="left brand-logo">تودو ساز</h6>
+            <div class='right-align'>
+                <a href="/"><h6 class="brand-logo">تودو ساز</h6></a>
             </div>
             {% block bar %}{% endblock bar %}
         </div>

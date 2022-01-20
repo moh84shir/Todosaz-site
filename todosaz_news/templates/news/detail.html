@@ -17,10 +17,10 @@
             {% if user.is_superuser %}
             <div class="card-action">
                 <a href="{% url 'news:edit_new' new.pk %}">
-                    <button class="btn btn-small waves-effect green">ویرایش</button>
+                    <button class="btn btn-small waves-effect grey">ویرایش</button>
                 </a>
                 <a href="{% url 'news:delete_new' new.pk %}">
-                    <button class="btn btn-small waves-effect red">حذف</button>
+                    <button class="btn btn-small waves-effect grey">حذف</button>
                 </a>
             </div>
             {% endif %}
