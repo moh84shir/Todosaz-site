@@ -10,8 +10,8 @@ from django.urls import reverse
 class LoginForm(forms.Form):
     username = forms.CharField(label="نام کاربری")
     password = forms.CharField(widget=forms.PasswordInput, label="رمز عبور")
-    captcha = ReCaptchaField(
-        widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
+    # captcha = ReCaptchaField(
+    #     widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
 
     def login_user(self, request):
         cd = self.cleaned_data

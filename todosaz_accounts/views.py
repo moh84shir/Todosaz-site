@@ -1,3 +1,4 @@
+from .models import AboutUser
 from django.urls import reverse
 from django.views.generic.edit import UpdateView
 from django.shortcuts import render, redirect
@@ -32,10 +33,8 @@ def register(request):
 
 @login_required
 def del_account(request):
-    loggedin_user = request.user
-    if not loggedin_user.is_authenticated:
-        return redirect('/accounts/login/')
-    User.objects.delete(loggedin_user)
+    loggedin_user = request.user.username
+    User.objects.get(username=loggedin_user).delete()
     return redirect('/accounts/register/')
 
 
@@ -48,6 +47,10 @@ def user_profile(request):
     email = user.email
     profile_image = ProfileImage.objects.filter(user=user).last()
     todo_count = Todo.objects.filter(user=user).count()
+    try:
+        about = AboutUser.objects.get(user=user).about
+    except:
+        about = None
 
     context = {
         'user': user,
@@ -57,6 +60,7 @@ def user_profile(request):
         'email': email,
         'todo_count': todo_count,
         'profile_image': profile_image,
+        'about':about,
     }
     return render(request, 'accounts/profile.html', context)
 

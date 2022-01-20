@@ -8,6 +8,11 @@ from .models import Setting
 def change_settings(request):
     if request.user.is_superuser:
         settings = Setting.objects.last()
+
+        if settings is None:
+            Setting.objects.create(
+                title="", short_desc="", about="", email="", phone="")
+
         form = ChangeSettingsFrom(
             request.POST or None,
             initial={
