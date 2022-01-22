@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -168,3 +168,6 @@ EMAIL_HOST_PASSWORD = "passwordsadeh"
 # Google recaptcha Settings
 RECAPTCHA_PUBLIC_KEY = '6LfUswceAAAAADFiPUxnePtf3xK4mCpNekCI56VC'
 RECAPTCHA_PRIVATE_KEY = '6LfUswceAAAAABIoC8eT-xIk_AYANRrceweRggWX'
+
+
+django_heroku.settings(locals())
