@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Todo
-        fields = "__all__"
+        fields = '__all__'
 
 
 class NewSerializer(serializers.ModelSerializer):

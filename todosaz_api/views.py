@@ -18,13 +18,11 @@ from .serializers import (NewSerializer, SettingSerializer, TodoSerializer,
 class TodoListCreate(ListCreateAPIView):
     serializer_class = TodoSerializer
     queryset = Todo.objects.all()
-    permission_classes = (IsAuthenticated,)
 
 
 class TodoDetailUpdateDelete(RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    permission_classes = (IsAuthenticated,)
 
 
 class NewListCreate(ListCreateAPIView):

@@ -45,12 +45,6 @@ class RegisterForm(forms.Form):
 
         return username
 
-    def register_user(self):
-        cd = self.cleaned_data
-        user = User.objects.create_user(
-            username=cd["username"], password=cd["password"])
-        AboutUser.objects.create(user=user, about="")
-        return redirect(reverse('accounts:login'))
 
 
 class EditProfileForm(forms.Form):
@@ -73,8 +67,24 @@ class AddOrChangeProfileImageForm(forms.Form):
     )
 
 
-
 class ChangeAboutForm(forms.Form):
     about = forms.CharField(
         label="درباره ی شما"
     )
+
+
+class ChangePassword(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+
+    def change_password(self, user:User):
+        cd = self.cleaned_data
+
+        input_old_password = cd.get('old_password')
+        input_new_password = cd.get('new_password')
+        check_user_password = user.check_password(input_old_password)
+        if check_user_password:
+            user.set_password(input_new_password)
+            user.save()
+            return redirect('/accounts/profile/')
+        self.add_error('old_password', 'پسورد قدیمی را درست وارد کنید')
