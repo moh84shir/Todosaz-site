@@ -2,41 +2,38 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import UpdateView
 from todosaz_todoes.models import Todo
 
 from .forms import (AddOrChangeProfileImageForm, ChangeAboutForm, LoginForm,
-                    RegisterForm, ChangePassword)
+                    RegisterForm,)
 from .models import AboutUser, ProfileImage
 from django.views.generic.edit import FormView
+from django.contrib.auth.views import PasswordChangeView, LoginView
 
 
-def login(request):
-    next_url = request.GET['next'] if 'next' in request.GET else reverse(
-        'accounts:profile')
-    if not request.user.is_authenticated:
-        form = LoginForm(request.POST or None)
-        if form.is_valid():
-            form.login_user(request)
-            return redirect(next_url)
-        return render(request, 'accounts/login.html', {'form': form})
-    return redirect(next_url)
+class Login(LoginView):
+    template_name = 'accounts/login.html'
 
 
-def register(request):
-    next_url = request.GET['next'] if 'next' in request.GET else reverse(
-        'accounts:profile')
-    if not request.user.is_authenticated:
-        form = RegisterForm(request.POST or None)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = User.objects.create_user(
-                username=cd['username'], password=cd['password'])
-            AboutUser.objects.create(user=user, about="")
-            return redirect(next_url)
-        return render(request, 'accounts/register.html', {'form': form})
-    return redirect(next_url)
+# def login(request):
+#     next_url = request.GET['next'] if 'next' in request.GET else reverse(
+#         'accounts:profile')
+#     if not request.user.is_authenticated:
+#         form = LoginForm(request.POST or None)
+#         if form.is_valid():
+#             form.login_user(request)
+#             return redirect(next_url)
+#         return render(request, 'accounts/login.html', {'form': form})
+#     return redirect(next_url)
+
+from django.views.generic.edit import CreateView
+
+class Register(CreateView):
+    form_class = RegisterForm
+    success_url = reverse_lazy('accounts:login')
+    template_name = 'accounts/register.html'
 
 
 @login_required
@@ -83,34 +80,9 @@ class EditProfile(UpdateView):
         return User.objects.filter(username=username)
 
 
-class SetPassword(FormView):
+class SetPassword(PasswordChangeView):
+    template_name = 'accounts/change_password.html'
     success_url = '/accounts/profile/'
-    form_class = ChangePassword
-
-    def form_valid(self, form):
-        form.change_password()
-        return super().form_valid(form)
-
-@login_required
-def set_password(request):
-    import pdb;pdb.set_trace()
-    username = request.user.username
-    user:User = User.objects.get(username=username)
-    form = ChangePassword(request.POST or None)
-
-    if form.is_valid():
-        cd = form.cleaned_data
-        input_old_password = cd['old_password']
-        input_new_password = cd['new_password']
-
-        is_valid_password = user.check_password(input_old_password)
-        if is_valid_password:
-            user.set_password(input_new_password)
-            user.save()
-            return redirect(reverse('accounts:profile'))
-        form.add_error('old_password', 'پسورد قدیمی را درست وارد کنید')
-
-    return render(request, 'accounts/change_password.html', {'form': form})
 
 
 @login_required

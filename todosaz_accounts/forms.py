@@ -6,13 +6,14 @@ from django.shortcuts import redirect
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="نام کاربری")
     password = forms.CharField(widget=forms.PasswordInput, label="رمز عبور")
-    # captcha = ReCaptchaField(
-    #     widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
 
     def login_user(self, request):
         cd = self.cleaned_data
@@ -22,29 +23,8 @@ class LoginForm(forms.Form):
         self.add_error("username", "عملیات ورود با شکست مواجه شد")
 
 
-class RegisterForm(forms.Form):
-    username = forms.CharField(label="نام کاربری")
-    password = forms.CharField(widget=forms.PasswordInput, label="رمز عبور")
-    re_password = forms.CharField(
-        widget=forms.PasswordInput, label="تایید رمز عبور")
-    # captcha = ReCaptchaField(
-    #   widget=ReCaptchaV2Checkbox, label="تایید گوگل کپچا")
-
-    def clean_re_password(self):
-        cd = self.cleaned_data
-        if cd["password"] != cd["re_password"]:
-            raise forms.ValidationError("رمز های عبور مطابقت ندارند")
-        return cd["password"]
-
-    def clean_username(self):
-        username = self.cleaned_data.get("username")
-        is_username_exists = User.objects.filter(username=username).exists()
-
-        if is_username_exists:
-            raise forms.ValidationError("نام کاربری تکراریست")
-
-        return username
-
+class RegisterForm(UserCreationForm):
+    pass
 
 
 class EditProfileForm(forms.Form):
@@ -71,20 +51,3 @@ class ChangeAboutForm(forms.Form):
     about = forms.CharField(
         label="درباره ی شما"
     )
-
-
-class ChangePassword(forms.Form):
-    old_password = forms.CharField(widget=forms.PasswordInput())
-    new_password = forms.CharField(widget=forms.PasswordInput())
-
-    def change_password(self, user:User):
-        cd = self.cleaned_data
-
-        input_old_password = cd.get('old_password')
-        input_new_password = cd.get('new_password')
-        check_user_password = user.check_password(input_old_password)
-        if check_user_password:
-            user.set_password(input_new_password)
-            user.save()
-            return redirect('/accounts/profile/')
-        self.add_error('old_password', 'پسورد قدیمی را درست وارد کنید')
