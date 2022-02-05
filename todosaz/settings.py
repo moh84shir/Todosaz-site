@@ -168,3 +168,6 @@ EMAIL_HOST_PASSWORD = "passwordsadeh"
 RECAPTCHA_PUBLIC_KEY = '6LfUswceAAAAADFiPUxnePtf3xK4mCpNekCI56VC'
 RECAPTCHA_PRIVATE_KEY = '6LfUswceAAAAABIoC8eT-xIk_AYANRrceweRggWX'
 
+# Authentication system config
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGIN_URL = 'accounts:login'

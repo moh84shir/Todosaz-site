@@ -10,25 +10,13 @@ from .forms import (AddOrChangeProfileImageForm, ChangeAboutForm, LoginForm,
                     RegisterForm,)
 from .models import AboutUser, ProfileImage
 from django.views.generic.edit import FormView
-from django.contrib.auth.views import PasswordChangeView, LoginView
+from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView, PasswordChangeDoneView
+from django.views.generic.edit import CreateView
 
 
 class Login(LoginView):
     template_name = 'accounts/login.html'
 
-
-# def login(request):
-#     next_url = request.GET['next'] if 'next' in request.GET else reverse(
-#         'accounts:profile')
-#     if not request.user.is_authenticated:
-#         form = LoginForm(request.POST or None)
-#         if form.is_valid():
-#             form.login_user(request)
-#             return redirect(next_url)
-#         return render(request, 'accounts/login.html', {'form': form})
-#     return redirect(next_url)
-
-from django.views.generic.edit import CreateView
 
 class Register(CreateView):
     form_class = RegisterForm
@@ -72,7 +60,7 @@ def user_profile(request):
 
 class EditProfile(UpdateView):
     fields = ['first_name', 'last_name', 'email']
-    success_url = '/accounts/profile/'
+    success_url = 'accounts:profile'
     template_name = 'accounts/edit_profile.html'
 
     def get_queryset(self):
@@ -80,15 +68,17 @@ class EditProfile(UpdateView):
         return User.objects.filter(username=username)
 
 
-class SetPassword(PasswordChangeView):
+class ChangePassword(PasswordChangeView):
     template_name = 'accounts/change_password.html'
-    success_url = '/accounts/profile/'
+    success_url = '/accounts/change-password-done'
 
 
-@login_required
-def logout_user(request):
-    logout(request)
-    return redirect('/accounts/login/')
+class ChangePasswordDone(PasswordChangeDoneView):
+    template_name = 'accounts/change_password_done.html'
+
+
+class Logout(LogoutView):
+    pass
 
 
 @login_required(login_url='/accounts/login/')
@@ -116,6 +106,8 @@ def change_profile_image(request):
 def edit_about(request):
     user = request.user
     about_object = AboutUser.objects.filter(user=user).last()
+    if about_object is None:
+        AboutUser.objects.create(about="", user=user)
     form = ChangeAboutForm(request.POST or None, initial={
                            'about': about_object.about})
     if form.is_valid():
