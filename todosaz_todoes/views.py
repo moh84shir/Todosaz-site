@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView, FormView
@@ -8,18 +9,12 @@ from .forms import CreateTodoForm
 class TodoList(ListView):
     template_name = "todoes/list.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        return context
-
     def get_queryset(self):
         usr = self.request.user
         return Todo.objects.filter(user=usr).order_by("-pk")
 
 
 class TodoDetail(DetailView):
-    model = Todo
     template_name = "todoes/detail.html"
 
     def get_queryset(self):
@@ -29,7 +24,7 @@ class TodoDetail(DetailView):
 
 class CreateTodo(FormView):
     form_class = CreateTodoForm
-    success_url = "/todoes/"
+    success_url = reverse_lazy('todoes:todo_list')
     template_name = "todoes/create.html"
 
     def form_valid(self, form):
@@ -50,7 +45,7 @@ class UpdateTodo(UpdateView):
 class DeleteTodo(DeleteView):
     model = Todo
     template_name = "todoes/delete.html"
-    success_url = "/todoes/"
+    success_url = reverse_lazy('todoes:todo_list')
 
     def get_queryset(self):
         usr = self.request.user
